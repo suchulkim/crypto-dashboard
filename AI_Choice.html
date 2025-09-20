@@ -167,6 +167,7 @@
             background: var(--card-bg);
             border-radius: 15px;
             padding: 2rem;
+            margin-bottom: 2rem;
             box-shadow: 0 6px 20px rgba(0,0,0,0.1);
         }
 
@@ -215,6 +216,27 @@
             color: var(--danger-color);
         }
 
+        .candidates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .candidate-card {
+            background: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px solid var(--border-color);
+        }
+
+        .candidate-rank {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
         .warning-box {
             background: #fff3cd;
             border: 1px solid #ffeaa7;
@@ -254,7 +276,7 @@
         <!-- 헤더 -->
         <div class="header">
             <h1>🧠 AI 암호화폐 분석 결과</h1>
-            <div class="subtitle">실제 학습된 신경망 기반 분석 • 2025-09-20 13:45:44</div>
+            <div class="subtitle">실제 학습된 신경망 기반 분석 • 2025-09-20 14:04:48</div>
         </div>
 
         <!-- 네비게이션 -->
@@ -267,7 +289,8 @@
             </div>
         </div>
 
-        <!-- 분석 요약 -->
+        <!-- AI 최종 판단 -->
+        
         <div class="analysis-summary">
             <h2>🎯 AI 최종 판단</h2>
             <div class="decision-badge decision-nogo">
@@ -276,20 +299,145 @@
             
             <p><strong>판단 근거:</strong> 시장 환경이 숏포지션에 불리함</p>
             
-            <p>추천 종목이 없습니다.</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">35</div>
+                    <div class="stat-label">시장 점수</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">NEUTRAL</div>
+                    <div class="stat-label">시장 심리</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">❌</div>
+                    <div class="stat-label">숏 친화도</div>
+                </div>
+            </div>
         </div>
+        
 
-        <!-- 추천 종목 차트 -->
+        <!-- 최고 점수 종목 분석 -->
+        
+        <div class="analysis-summary">
+            <h2>📈 최고 점수 종목 상세 분석</h2>
+            <h3>OMNIUSDT</h3>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">OMNIUSDT</div>
+                    <div class="stat-label">종목명</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">43</div>
+                    <div class="stat-label">최종 점수</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">49.0%</div>
+                    <div class="stat-label">신뢰도</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">55.0%</div>
+                    <div class="stat-label">GO 확률</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">$4.133000</div>
+                    <div class="stat-label">현재가</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value risk-badge risk-high">HIGH</div>
+                    <div class="stat-label">리스크</div>
+                </div>
+            </div>
+            
+            
+        <div style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-color); border-radius: 10px;">
+            <h4>🔍 AI 판단 근거</h4>
+            <p>🟡 <strong>스토캐스틱_K:</strong> 스토캐스틱_K: 0.698</p><p>🟡 <strong>ATR:</strong> ATR: 0.048</p><p>🟢 <strong>RSI:</strong> RSI 78.9로 과매수 상태, 하락 압력</p>
+            <p><strong>핵심 인사이트:</strong> </p>
+        </div>
+        
+        </div>
+        
+
+        <!-- 실시간 차트 -->
+        
+        <div class="chart-section">
+            <h2>📈 OMNIUSDT 실시간 차트 (4시간봉)</h2>
+            <div class="chart-container">
+                <div id="tradingview_chart"></div>
+            </div>
+        </div>
+        
+        <script>
+            new TradingView.widget({
+                "autosize": true,
+                "symbol": "BINANCE:OMNIUSDT",
+                "interval": "240",
+                "timezone": "Asia/Seoul",
+                "theme": "light",
+                "style": "1",
+                "locale": "kr",
+                "toolbar_bg": "#f1f3f6",
+                "enable_publishing": false,
+                "hide_top_toolbar": false,
+                "hide_legend": false,
+                "save_image": false,
+                "container_id": "tradingview_chart",
+                "studies": [
+                    "RSI@tv-basicstudies",
+                    "MASimple@tv-basicstudies"
+                ]
+            });
+        </script>
         
 
         <!-- 분석 히스토리 -->
+        
         <div class="history-section">
-            <h2>📊 최근 분석 히스토리</h2>
+            <h2>📊 AI 분석 히스토리 & 상위 후보</h2>
+            
+            <!-- 상위 후보 종목들 -->
+            <h3>🏆 현재 상위 후보 종목들</h3>
+            <div class="candidates-grid">
+            <div class="candidate-card">
+                <div class="candidate-rank">#1</div>
+                <h4>OMNIUSDT</h4>
+                <p><strong>점수:</strong> 43/100</p>
+                <p><strong>신뢰도:</strong> 49.0%</p>
+                <p><strong>GO확률:</strong> 55.0%</p>
+                <p><strong>신경망:</strong> 학습됨</p>
+                <p><strong>리스크:</strong> <span class="risk-badge risk-high">HIGH</span></p>
+            </div>
+            
+            <div class="candidate-card">
+                <div class="candidate-rank">#2</div>
+                <h4>QUSDT</h4>
+                <p><strong>점수:</strong> 38/100</p>
+                <p><strong>신뢰도:</strong> 44.0%</p>
+                <p><strong>GO확률:</strong> 64.0%</p>
+                <p><strong>신경망:</strong> 학습됨</p>
+                <p><strong>리스크:</strong> <span class="risk-badge risk-high">HIGH</span></p>
+            </div>
+            
+            <div class="candidate-card">
+                <div class="candidate-rank">#3</div>
+                <h4>UBUSDT</h4>
+                <p><strong>점수:</strong> 32/100</p>
+                <p><strong>신뢰도:</strong> 38.0%</p>
+                <p><strong>GO확률:</strong> 50.8%</p>
+                <p><strong>신경망:</strong> 학습됨</p>
+                <p><strong>리스크:</strong> <span class="risk-badge risk-high">HIGH</span></p>
+            </div>
+            </div>
+            
+            <!-- 점수 추이 차트 -->
+            <h3>📈 분석 점수 추이</h3>
             <div class="chart-container">
                 <canvas id="historyChart"></canvas>
             </div>
             
-            <h3>상세 히스토리</h3>
+            <!-- 상세 히스토리 테이블 -->
+            <h3>📋 상세 히스토리</h3>
             <div style="overflow-x: auto;">
                 <table class="history-table">
                     <thead>
@@ -305,6 +453,36 @@
                     </thead>
                     <tbody>
                         
+                <tr>
+                    <td>2025-09-20 14:04</td>
+                    <td><strong>OMNIUSDT</strong></td>
+                    <td><span class="decision-badge decision-cand">CANDIDATE_NOGO</span></td>
+                    <td>43</td>
+                    <td>49.0%</td>
+                    <td>55.0%</td>
+                    <td><span class="risk-badge risk-high">HIGH</span></td>
+                </tr>
+            
+                <tr>
+                    <td>2025-09-20 14:04</td>
+                    <td><strong>QUSDT</strong></td>
+                    <td><span class="decision-badge decision-cand">CANDIDATE_NOGO</span></td>
+                    <td>38</td>
+                    <td>44.0%</td>
+                    <td>64.0%</td>
+                    <td><span class="risk-badge risk-high">HIGH</span></td>
+                </tr>
+            
+                <tr>
+                    <td>2025-09-20 14:04</td>
+                    <td><strong>UBUSDT</strong></td>
+                    <td><span class="decision-badge decision-cand">CANDIDATE_NOGO</span></td>
+                    <td>32</td>
+                    <td>38.0%</td>
+                    <td>50.8%</td>
+                    <td><span class="risk-badge risk-high">HIGH</span></td>
+                </tr>
+            
                 <tr>
                     <td>2025-09-20 13:45</td>
                     <td><strong>OMNIUSDT</strong></td>
@@ -369,6 +547,7 @@
                 </table>
             </div>
         </div>
+        
 
         <!-- 위험 경고 메시지 -->
         <div class="warning-box">
@@ -394,7 +573,7 @@
             labels: ["2025-09-20"],
             datasets: [{
                 label: '평균 분석 점수',
-                data: [35.166666666666664],
+                data: [36.0],
                 borderColor: '#3498db',
                 backgroundColor: 'rgba(52, 152, 219, 0.1)',
                 tension: 0.4,
@@ -403,37 +582,41 @@
         };
         
         
-        const ctx = document.getElementById('historyChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: historyChartData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: '최근 30일 AI 분석 점수 추이'
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100,
+        // 차트가 존재하는 경우에만 생성
+        const historyChartElement = document.getElementById('historyChart');
+        if (historyChartElement && historyChartData.labels.length > 0) {
+            const ctx = historyChartElement.getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: historyChartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
                         title: {
                             display: true,
-                            text: '분석 점수'
+                            text: '최근 30일 AI 분석 점수 추이'
                         }
                     },
-                    x: {
-                        title: {
-                            display: true,
-                            text: '날짜'
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: '분석 점수'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: '날짜'
+                            }
                         }
                     }
                 }
-            }
-        });
+            });
+        }
     </script>
 </body>
 </html>
