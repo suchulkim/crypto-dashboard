@@ -395,7 +395,7 @@
         <!-- 헤더 -->
         <div class="header">
             <h1>🧠 AI 코인선물 종목 추천</h1>
-            <div class="subtitle">실제 학습된 신경망 기반 분석 • 2025-09-21 00:31:01</div>
+            <div class="subtitle">실제 학습된 신경망 기반 분석 • 2025-09-21 00:36:56</div>
         </div>
 
         <!-- 네비게이션 -->
@@ -454,11 +454,11 @@
                     <div class="stat-label">신뢰도</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">63.9%</div>
+                    <div class="stat-value">64.2%</div>
                     <div class="stat-label">GO 확률</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">$0.092770</div>
+                    <div class="stat-value">$0.092290</div>
                     <div class="stat-label">현재가</div>
                 </div>
                 <div class="stat-card">
@@ -470,7 +470,7 @@
             
         <div style="margin-top: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 15px; border: 1px solid var(--border-color);">
             <h4 style="color: var(--primary-color); margin-bottom: 1rem;">🔍 AI 판단 근거</h4>
-            <p style='margin-bottom: 0.5rem;'>🟢 <strong>1봉_수익률:</strong> 1봉_수익률 -10.46%로 하락, 하락 지속 가능성</p><p style='margin-bottom: 0.5rem;'>🟡 <strong>스토캐스틱_K:</strong> 스토캐스틱_K: 0.218</p><p style='margin-bottom: 0.5rem;'>🔴 <strong>3봉전_양음봉:</strong> 3봉전_양음봉 양봉으로 상승 압력</p>
+            <p style='margin-bottom: 0.5rem;'>🟢 <strong>1봉_수익률:</strong> 1봉_수익률 -10.95%로 하락, 하락 지속 가능성</p><p style='margin-bottom: 0.5rem;'>🟡 <strong>스토캐스틱_K:</strong> 스토캐스틱_K: 0.214</p><p style='margin-bottom: 0.5rem;'>🟡 <strong>윌리엄스_R:</strong> 윌리엄스_R: 0.214</p>
             <p style="margin-top: 1rem;"><strong>핵심 인사이트:</strong> 숏 유리 요인: 1봉_수익률, 숏 불리 요인: 3봉전_양음봉</p>
         </div>
         
@@ -557,115 +557,128 @@
             </div>
         </div>
         
-        
         <script>
             let isChartExpanded = false;
             let widget = null;
             
-            function toggleChartSize() {
-                const chartSection = document.getElementById('chartSection');
-                const chartContainer = document.getElementById('chartContainer');
-                const chartDiv = document.getElementById('tradingview_chart');
-                const toggleBtn = document.getElementById('chartToggleBtn');
+            // 차트 타입 전환
+            function showTradingView() {
+                document.getElementById('tradingViewContainer').style.display = 'block';
+                document.getElementById('priceInfoContainer').style.display = 'none';
+                document.getElementById('tvBtn').classList.add('active');
+                document.getElementById('priceBtn').classList.remove('active');
                 
-                if (!isChartExpanded) {
-                    // 확대
-                    const newHeight = Math.max(800, window.innerHeight - 150);
-                    chartSection.classList.add('chart-fullscreen');
-                    chartContainer.style.height = newHeight + 'px';
-                    chartDiv.style.height = newHeight + 'px';
-                    toggleBtn.innerHTML = '🔍 축소';
-                    isChartExpanded = true;
-                } else {
-                    // 축소
-                    chartSection.classList.remove('chart-fullscreen');
-                    chartContainer.style.height = '1200px';
-                    chartDiv.style.height = '1200px';
-                    toggleBtn.innerHTML = '🔍 확대';
-                    isChartExpanded = false;
-                }
-                
-                // 강제 리사이즈
-                if (widget && widget.iframe) {
-                    setTimeout(() => {
-                        widget.iframe.style.height = chartDiv.style.height;
-                        widget.iframe.style.width = '100%';
-                    }, 100);
+                // TradingView 위젯이 없으면 생성
+                if (!widget) {
+                    initTradingView();
                 }
             }
             
-            // TradingView 위젯 생성
-            widget = new TradingView.widget({
-                "width": 1400,
-                "height": 1200,
-                "symbol": "BINANCE:TUTUSDT",
-                "interval": "240",
-                "timezone": "Asia/Seoul",
-                "theme": "dark",
-                "style": "1",
-                "locale": "kr",
-                "toolbar_bg": "#000000",
-                "enable_publishing": false,
-                "hide_top_toolbar": false,
-                "hide_legend": false,
-                "save_image": false,
-                "container_id": "tradingview_chart",
-                "studies": [
-                    "RSI@tv-basicstudies",
-                    "MASimple@tv-basicstudies",
-                    "Volume@tv-basicstudies"
-                ],
-                "overrides": {
-                    "paneProperties.background": "#000000",
-                    "paneProperties.backgroundType": "solid",
-                    "paneProperties.vertGridProperties.color": "#1a1a1a",
-                    "paneProperties.horzGridProperties.color": "#1a1a1a",
-                    "paneProperties.vertGridProperties.style": 0,
-                    "paneProperties.horzGridProperties.style": 0,
-                    "symbolWatermarkProperties.transparency": 95,
-                    "scalesProperties.textColor": "#ffffff",
-                    "scalesProperties.backgroundColor": "#000000",
-                    "scalesProperties.fontSize": 16,
-                    "scalesProperties.lineColor": "#ffffff",
-                    "mainSeriesProperties.candleStyle.upColor": "#00ff88",
-                    "mainSeriesProperties.candleStyle.downColor": "#ff4444",
-                    "mainSeriesProperties.candleStyle.drawWick": true,
-                    "mainSeriesProperties.candleStyle.drawBorder": true,
-                    "mainSeriesProperties.candleStyle.borderColor": "#ffffff",
-                    "mainSeriesProperties.candleStyle.borderUpColor": "#00ff88",
-                    "mainSeriesProperties.candleStyle.borderDownColor": "#ff4444",
-                    "mainSeriesProperties.candleStyle.wickUpColor": "#00ff88",
-                    "mainSeriesProperties.candleStyle.wickDownColor": "#ff4444",
-                    "volumePaneSize": "medium",
-                    "studies.volume.volume.color.0": "#ff4444",
-                    "studies.volume.volume.color.1": "#00ff88",
-                    "studies.volume.volume.transparency": 50,
-                    "studies.RSI.rsi.color": "#ffaa00",
-                    "studies.RSI.upperband.color": "#ff4444",
-                    "studies.RSI.lowerband.color": "#00ff88"
-                }
-            });
+            function showPriceInfo() {
+                document.getElementById('tradingViewContainer').style.display = 'none';
+                document.getElementById('priceInfoContainer').style.display = 'block';
+                document.getElementById('tvBtn').classList.remove('active');
+                document.getElementById('priceBtn').classList.add('active');
+                
+                // 가격 정보 로드
+                loadPriceInfo();
+            }
             
-            // 로딩 완료 후 크기 강제 조정
-            setTimeout(() => {
-                const chartDiv = document.getElementById('tradingview_chart');
-                const iframe = chartDiv.querySelector('iframe');
-                if (iframe) {
-                    iframe.style.height = '1200px !important';
-                    iframe.style.width = '100% !important';
+            function initTradingView() {
+                try {
+                    widget = new TradingView.widget({
+                        "width": "100%",
+                        "height": "100%",
+                        "symbol": "BINANCE:TUTUSDT",
+                        "interval": "240",
+                        "timezone": "Asia/Seoul",
+                        "theme": "dark",
+                        "style": "1",
+                        "locale": "kr",
+                        "toolbar_bg": "#000000",
+                        "enable_publishing": false,
+                        "hide_top_toolbar": false,
+                        "hide_legend": false,
+                        "save_image": false,
+                        "container_id": "tradingview_chart",
+                        "studies": [
+                            "RSI@tv-basicstudies",
+                            "MASimple@tv-basicstudies",
+                            "Volume@tv-basicstudies"
+                        ],
+                        "overrides": {
+                            "paneProperties.background": "#000000",
+                            "paneProperties.backgroundType": "solid",
+                            "paneProperties.vertGridProperties.color": "#1a1a1a",
+                            "paneProperties.horzGridProperties.color": "#1a1a1a",
+                            "symbolWatermarkProperties.transparency": 95,
+                            "scalesProperties.textColor": "#ffffff",
+                            "mainSeriesProperties.candleStyle.upColor": "#00ff88",
+                            "mainSeriesProperties.candleStyle.downColor": "#ff4444",
+                            "mainSeriesProperties.candleStyle.wickUpColor": "#00ff88",
+                            "mainSeriesProperties.candleStyle.wickDownColor": "#ff4444"
+                        }
+                    });
+                } catch (error) {
+                    console.error('TradingView 로딩 실패:', error);
+                    // TradingView 실패시 가격 정보로 전환
+                    showPriceInfo();
                 }
-            }, 2000);
+            }
             
-            // 윈도우 리사이즈 시에도 크기 조정
-            window.addEventListener('resize', () => {
-                setTimeout(() => {
-                    const chartDiv = document.getElementById('tradingview_chart');
-                    const iframe = chartDiv.querySelector('iframe');
-                    if (iframe && !isChartExpanded) {
-                        iframe.style.height = '1200px';
-                        iframe.style.width = '100%';
-                    }
-                }, 100);
+            function loadPriceInfo() {
+                // 바이낸스 API로 가격 정보 로드
+                fetch('https://api.binance.com/api/v3/ticker/24hr?symbol=TUTUSDT')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('currentPrice').textContent = parseFloat(data.lastPrice).toFixed(6);
+                        const change = parseFloat(data.priceChangePercent);
+                        const changeElement = document.getElementById('priceChange');
+                        changeElement.textContent = (change > 0 ? '+' : '') + change.toFixed(2) + '%';
+                        changeElement.style.color = change > 0 ? '#00ff88' : '#ff4444';
+                        document.getElementById('volume24h').textContent = (parseFloat(data.quoteVolume) / 1000000).toFixed(2) + 'M';
+                        document.getElementById('high24h').textContent = parseFloat(data.highPrice).toFixed(6);
+                    })
+                    .catch(error => {
+                        console.log('가격 정보 로딩 실패:', error);
+                        document.getElementById('currentPrice').textContent = '데이터 로딩 실패';
+                        document.getElementById('priceChange').textContent = '바이낸스에서 확인하세요';
+                        document.getElementById('volume24h').textContent = '-';
+                        document.getElementById('high24h').textContent = '-';
+                    });
+            }
+            
+            function toggleChartSize() {
+                const chartSection = document.getElementById('chartSection');
+                const containers = [document.getElementById('tradingViewContainer'), document.getElementById('priceInfoContainer')];
+                const toggleBtn = document.getElementById('chartToggleBtn');
+                
+                if (!isChartExpanded) {
+                    const newHeight = Math.max(800, window.innerHeight - 150);
+                    chartSection.classList.add('chart-fullscreen');
+                    containers.forEach(container => {
+                        container.style.height = newHeight + 'px';
+                    });
+                    toggleBtn.innerHTML = '🔍 축소';
+                    isChartExpanded = true;
+                } else {
+                    chartSection.classList.remove('chart-fullscreen');
+                    containers.forEach(container => {
+                        container.style.height = '1200px';
+                    });
+                    toggleBtn.innerHTML = '🔍 확대';
+                    isChartExpanded = false;
+                }
+            }
+            
+            function openBinanceChart() {
+                const url = 'https://www.binance.com/en/trade/TUT_USDT';
+                window.open(url, '_blank', 'width=1400,height=900');
+            }
+            
+            // 초기 로드
+            document.addEventListener('DOMContentLoaded', function() {
+                initTradingView();
             });
         </script>
         
@@ -691,6 +704,16 @@
                     </thead>
                     <tbody>
                         
+                <tr>
+                    <td style="font-size: 0.9rem;">2025-09-21 00:36</td>
+                    <td><a href="https://www.binance.com/en/futures/TUTUSDT" target="_blank" class="symbol-link">TUTUSDT</a></td>
+                    <td><span class="decision-badge decision-nogo" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">NOGO</span></td>
+                    <td style="font-weight: bold; color: var(--accent-color);">44</td>
+                    <td>50.0%</td>
+                    <td>64.2%</td>
+                    <td><span class="risk-badge risk-high">HIGH</span></td>
+                </tr>
+            
                 <tr>
                     <td style="font-size: 0.9rem;">2025-09-21 00:31</td>
                     <td><a href="https://www.binance.com/en/futures/TUTUSDT" target="_blank" class="symbol-link">TUTUSDT</a></td>
