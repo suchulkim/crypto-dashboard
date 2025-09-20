@@ -395,7 +395,7 @@
         <!-- 헤더 -->
         <div class="header">
             <h1>🧠 AI 코인선물 종목 추천</h1>
-            <div class="subtitle">실제 학습된 신경망 기반 분석 • 2025-09-21 00:23:19</div>
+            <div class="subtitle">실제 학습된 신경망 기반 분석 • 2025-09-21 00:28:18</div>
         </div>
 
         <!-- 네비게이션 -->
@@ -438,27 +438,27 @@
         
         <div class="analysis-summary">
             <h2 class="section-title">📈 최고 점수 종목 상세 분석</h2>
-            <h3 style="color: var(--accent-color); margin-bottom: 1.5rem;">AINUSDT</h3>
+            <h3 style="color: var(--accent-color); margin-bottom: 1.5rem;">TUTUSDT</h3>
             
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-value">AINUSDT</div>
+                    <div class="stat-value">TUTUSDT</div>
                     <div class="stat-label">종목명</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">44</div>
+                    <div class="stat-value">43</div>
                     <div class="stat-label">최종 점수</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">50.0%</div>
+                    <div class="stat-value">49.0%</div>
                     <div class="stat-label">신뢰도</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">64.2%</div>
+                    <div class="stat-value">62.6%</div>
                     <div class="stat-label">GO 확률</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">$0.153630</div>
+                    <div class="stat-value">$0.094130</div>
                     <div class="stat-label">현재가</div>
                 </div>
                 <div class="stat-card">
@@ -470,8 +470,8 @@
             
         <div style="margin-top: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 15px; border: 1px solid var(--border-color);">
             <h4 style="color: var(--primary-color); margin-bottom: 1rem;">🔍 AI 판단 근거</h4>
-            <p style='margin-bottom: 0.5rem;'>🟡 <strong>스토캐스틱_K:</strong> 스토캐스틱_K: 0.623</p><p style='margin-bottom: 0.5rem;'>🟡 <strong>윌리엄스_R:</strong> 윌리엄스_R: 0.623</p><p style='margin-bottom: 0.5rem;'>🟡 <strong>ATR:</strong> ATR: 0.061</p>
-            <p style="margin-top: 1rem;"><strong>핵심 인사이트:</strong> 숏 불리 요인: 3봉전_양음봉</p>
+            <p style='margin-bottom: 0.5rem;'>🟢 <strong>1봉_수익률:</strong> 1봉_수익률 -9.15%로 하락, 하락 지속 가능성</p><p style='margin-bottom: 0.5rem;'>🔴 <strong>3봉전_양음봉:</strong> 3봉전_양음봉 양봉으로 상승 압력</p><p style='margin-bottom: 0.5rem;'>🟡 <strong>스토캐스틱_K:</strong> 스토캐스틱_K: 0.230</p>
+            <p style="margin-top: 1rem;"><strong>핵심 인사이트:</strong> 숏 유리 요인: 1봉_수익률, 숏 불리 요인: 3봉전_양음봉</p>
         </div>
         
         </div>
@@ -480,8 +480,86 @@
         <!-- 개선된 실시간 차트 -->
         
         <div class="chart-section" id="chartSection">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap;">
+                <h2 class="section-title">📈 TUTUSDT 실시간 차트</h2>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <button onclick="showTradingView()" id="tvBtn" class="chart-btn active"
+                            style="padding: 0.5rem 1rem; background: #2962FF; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">
+                        📊 TradingView
+                    </button>
+                    <button onclick="showPriceInfo()" id="priceBtn" class="chart-btn"
+                            style="padding: 0.5rem 1rem; background: #666; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">
+                        💰 가격정보
+                    </button>
+                    <button onclick="openBinanceChart()" id="binanceBtn"
+                            style="padding: 0.5rem 1rem; background: #f0b90b; color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.9rem;">
+                        🚀 바이낸스 열기
+                    </button>
+                    <button onclick="toggleChartSize()" id="chartToggleBtn" 
+                            style="padding: 0.5rem 1rem; background: var(--accent-color); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">
+                        🔍 확대
+                    </button>
+                </div>
+            </div>
+            
+            <!-- TradingView 차트 -->
+            <div class="chart-container" id="tradingViewContainer" style="height: 1200px !important; width: 100% !important; display: block;">
+                <div id="tradingview_chart" style="height: 1200px !important; width: 100% !important; min-height: 1200px !important;"></div>
+            </div>
+            
+            <!-- 가격 정보 대시보드 -->
+            <div class="chart-container" id="priceInfoContainer" style="height: 1200px !important; width: 100% !important; display: none; background: #1a1a1a; border-radius: 10px; padding: 2rem;">
+                <div style="color: white; text-align: center;">
+                    <h2 style="color: #f0b90b; margin-bottom: 2rem;">TUTUSDT 가격 정보</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                        <div style="background: #2a2a2a; padding: 2rem; border-radius: 15px;">
+                            <h3 style="color: #00ff88;">현재가</h3>
+                            <div id="currentPrice" style="font-size: 2.5rem; font-weight: bold;">로딩중...</div>
+                        </div>
+                        <div style="background: #2a2a2a; padding: 2rem; border-radius: 15px;">
+                            <h3 style="color: #ff4444;">24시간 변동</h3>
+                            <div id="priceChange" style="font-size: 2rem; font-weight: bold;">로딩중...</div>
+                        </div>
+                        <div style="background: #2a2a2a; padding: 2rem; border-radius: 15px;">
+                            <h3 style="color: #ffaa00;">24시간 거래량</h3>
+                            <div id="volume24h" style="font-size: 1.5rem; font-weight: bold;">로딩중...</div>
+                        </div>
+                        <div style="background: #2a2a2a; padding: 2rem; border-radius: 15px;">
+                            <h3 style="color: #00aaff;">24시간 최고가</h3>
+                            <div id="high24h" style="font-size: 1.5rem; font-weight: bold;">로딩중...</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 차트 링크들 -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                        <a href="https://www.binance.com/en/trade/TUT_USDT" target="_blank" 
+                           style="background: #f0b90b; color: #000; padding: 1.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; display: block;">
+                            🚀 바이낸스에서 거래하기
+                        </a>
+                        <a href="https://www.coingecko.com/en/coins/tut" target="_blank"
+                           style="background: #8dc647; color: white; padding: 1.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; display: block;">
+                            🦎 CoinGecko에서 보기
+                        </a>
+                        <a href="https://coinmarketcap.com/currencies/tut/" target="_blank"
+                           style="background: #17a2b8; color: white; padding: 1.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; display: block;">
+                            📊 CoinMarketCap
+                        </a>
+                        <a href="https://www.tradingview.com/chart/?symbol=BINANCE:TUTUSDT" target="_blank"
+                           style="background: #2962FF; color: white; padding: 1.5rem; border-radius: 10px; text-decoration: none; font-weight: bold; display: block;">
+                            📈 TradingView로 보기
+                        </a>
+                    </div>
+                    
+                    <div style="margin-top: 2rem; padding: 1rem; background: #333; border-radius: 10px;">
+                        <p style="color: #ccc;">💡 <strong>팁:</strong> 바이낸스 링크를 클릭하면 실제 거래 페이지에서 상세한 차트와 거래 기능을 사용할 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chart-section" id="chartSection">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                <h2 class="section-title">📈 AINUSDT 실시간 차트 (4시간봉)</h2>
+                <h2 class="section-title">📈 TUTUSDT 실시간 차트 (4시간봉)</h2>
                 <button onclick="toggleChartSize()" id="chartToggleBtn" 
                         style="padding: 0.5rem 1rem; background: var(--accent-color); color: white; border: none; border-radius: 5px; cursor: pointer;">
                     🔍 확대
@@ -532,7 +610,7 @@
             widget = new TradingView.widget({
                 "width": 1400,
                 "height": 1200,
-                "symbol": "BINANCE:AINUSDT",
+                "symbol": "BINANCE:TUTUSDT",
                 "interval": "240",
                 "timezone": "Asia/Seoul",
                 "theme": "dark",
@@ -625,6 +703,16 @@
                     </thead>
                     <tbody>
                         
+                <tr>
+                    <td style="font-size: 0.9rem;">2025-09-21 00:28</td>
+                    <td><a href="https://www.binance.com/en/futures/TUTUSDT" target="_blank" class="symbol-link">TUTUSDT</a></td>
+                    <td><span class="decision-badge decision-nogo" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">NOGO</span></td>
+                    <td style="font-weight: bold; color: var(--accent-color);">43</td>
+                    <td>49.0%</td>
+                    <td>62.6%</td>
+                    <td><span class="risk-badge risk-high">HIGH</span></td>
+                </tr>
+            
                 <tr>
                     <td style="font-size: 0.9rem;">2025-09-21 00:23</td>
                     <td><a href="https://www.binance.com/en/futures/AINUSDT" target="_blank" class="symbol-link">AINUSDT</a></td>
