@@ -5,20 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI 암호화폐 분석 결과</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://s3.tradingview.com/tv.js"></script>
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #34495e;
-            --accent-color: #3498db;
-            --success-color: #27ae60;
-            --warning-color: #f39c12;
-            --danger-color: #e74c3c;
-            --bg-color: #ecf0f1;
+            --primary-color: #1a1a2e;
+            --secondary-color: #16213e;
+            --accent-color: #0f4c75;
+            --success-color: #00c851;
+            --warning-color: #ffbb33;
+            --danger-color: #ff4444;
+            --bg-color: #f8f9fa;
             --card-bg: #ffffff;
             --text-color: #2c3e50;
-            --border-color: #bdc3c7;
+            --border-color: #e0e6ed;
+            --chart-bg: #1e222d;
         }
 
         * {
@@ -46,13 +46,14 @@
             padding: 2rem;
             border-radius: 15px;
             margin-bottom: 2rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .header h1 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
             text-align: center;
+            font-weight: 700;
         }
 
         .header .subtitle {
@@ -63,32 +64,34 @@
 
         .nav-menu {
             background: var(--card-bg);
-            border-radius: 10px;
-            padding: 1rem;
+            border-radius: 15px;
+            padding: 1.5rem;
             margin-bottom: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
         }
 
         .nav-links {
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 1.5rem;
             flex-wrap: wrap;
         }
 
         .nav-link {
-            padding: 0.75rem 1.5rem;
-            background: var(--accent-color);
+            padding: 0.8rem 1.8rem;
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
             color: white;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 10px;
             transition: all 0.3s ease;
-            font-weight: 500;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
         }
 
         .nav-link:hover {
-            background: var(--primary-color);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
 
         .analysis-summary {
@@ -96,58 +99,66 @@
             border-radius: 15px;
             padding: 2rem;
             margin-bottom: 2rem;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
         }
 
         .decision-badge {
             display: inline-block;
-            padding: 0.75rem 1.5rem;
+            padding: 1rem 2rem;
             border-radius: 25px;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .decision-go {
-            background: var(--success-color);
+            background: linear-gradient(135deg, var(--success-color), #00a444);
             color: white;
         }
 
         .decision-nogo {
-            background: var(--danger-color);
+            background: linear-gradient(135deg, var(--danger-color), #d32f2f);
             color: white;
         }
 
         .decision-wait {
-            background: var(--warning-color);
+            background: linear-gradient(135deg, var(--warning-color), #f57c00);
             color: white;
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
         .stat-card {
-            background: var(--bg-color);
-            padding: 1.5rem;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 2rem;
+            border-radius: 15px;
             text-align: center;
             border: 2px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
         }
 
         .stat-value {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: bold;
             color: var(--accent-color);
+            margin-bottom: 0.5rem;
         }
 
         .stat-label {
             color: var(--secondary-color);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         .chart-section {
@@ -155,12 +166,44 @@
             border-radius: 15px;
             padding: 2rem;
             margin-bottom: 2rem;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
         }
 
         .chart-container {
-            height: 500px;
+            height: 800px;
+            margin-top: 1.5rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: var(--chart-bg);
+            width: 100%;
+        }
+
+        .chart-section {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1rem;
             margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        /* 차트 풀스크린 스타일 */
+        .chart-fullscreen {
+            width: calc(100vw - 40px);
+            height: 90vh;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            max-width: none;
+        }
+
+        .chart-fullscreen .chart-container {
+            height: calc(90vh - 100px);
+            border-radius: 0;
         }
 
         .history-section {
@@ -168,91 +211,107 @@
             border-radius: 15px;
             padding: 2rem;
             margin-bottom: 2rem;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
         }
 
         .history-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
         }
 
         .history-table th,
         .history-table td {
-            padding: 0.75rem;
+            padding: 1rem;
             text-align: left;
             border-bottom: 1px solid var(--border-color);
         }
 
         .history-table th {
-            background: var(--bg-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
             font-weight: 600;
-            color: var(--secondary-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .history-table tr:hover {
-            background: var(--bg-color);
+            background: #f8f9fa;
+        }
+
+        .symbol-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.3rem 0.6rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .symbol-link:hover {
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
         }
 
         .risk-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 15px;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
             font-size: 0.8rem;
             font-weight: bold;
+            text-transform: uppercase;
         }
 
         .risk-low {
-            background: #d5f4e6;
-            color: var(--success-color);
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
         }
 
         .risk-medium {
-            background: #fef9e7;
-            color: var(--warning-color);
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
         }
 
         .risk-high {
-            background: #fadbd8;
-            color: var(--danger-color);
-        }
-
-        .candidates-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .candidate-card {
-            background: var(--bg-color);
-            padding: 1.5rem;
-            border-radius: 10px;
-            border: 2px solid var(--border-color);
-        }
-
-        .candidate-rank {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent-color);
-            margin-bottom: 0.5rem;
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
 
         .warning-box {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 10px;
-            padding: 1.5rem;
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border: 2px solid #ffc107;
+            border-radius: 15px;
+            padding: 2rem;
             margin: 2rem 0;
+            box-shadow: 0 5px 20px rgba(255, 193, 7, 0.2);
         }
 
         .warning-title {
             color: #856404;
             font-weight: bold;
             margin-bottom: 1rem;
+            font-size: 1.2rem;
         }
 
         .warning-text {
             color: #856404;
+            line-height: 1.8;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            font-weight: 700;
         }
 
         @media (max-width: 768px) {
@@ -268,6 +327,26 @@
             .header h1 {
                 font-size: 2rem;
             }
+            
+            .chart-container {
+                height: 500px;
+            }
+            
+            .chart-section {
+                padding: 0.5rem;
+            }
+            
+            .chart-fullscreen {
+                width: 100vw;
+                margin-left: -50vw;
+                margin-right: -50vw;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chart-container {
+                height: 400px;
+            }
         }
     </style>
 </head>
@@ -276,7 +355,7 @@
         <!-- 헤더 -->
         <div class="header">
             <h1>🧠 AI 암호화폐 분석 결과</h1>
-            <div class="subtitle">실제 학습된 신경망 기반 분석 • 2025-09-20 14:04:48</div>
+            <div class="subtitle">실제 학습된 신경망 기반 분석 • 2025-09-20 14:59:31</div>
         </div>
 
         <!-- 네비게이션 -->
@@ -292,12 +371,12 @@
         <!-- AI 최종 판단 -->
         
         <div class="analysis-summary">
-            <h2>🎯 AI 최종 판단</h2>
+            <h2 class="section-title">🎯 AI 최종 판단</h2>
             <div class="decision-badge decision-nogo">
                 NOGO
             </div>
             
-            <p><strong>판단 근거:</strong> 시장 환경이 숏포지션에 불리함</p>
+            <p style="font-size: 1.1rem; margin-bottom: 1rem;"><strong>판단 근거:</strong> 시장 환경이 숏포지션에 불리함</p>
             
             <div class="stats-grid">
                 <div class="stat-card">
@@ -319,28 +398,28 @@
         <!-- 최고 점수 종목 분석 -->
         
         <div class="analysis-summary">
-            <h2>📈 최고 점수 종목 상세 분석</h2>
-            <h3>OMNIUSDT</h3>
+            <h2 class="section-title">📈 최고 점수 종목 상세 분석</h2>
+            <h3 style="color: var(--accent-color); margin-bottom: 1.5rem;">OGUSDT</h3>
             
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-value">OMNIUSDT</div>
+                    <div class="stat-value">OGUSDT</div>
                     <div class="stat-label">종목명</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">43</div>
+                    <div class="stat-value">48</div>
                     <div class="stat-label">최종 점수</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">49.0%</div>
+                    <div class="stat-value">54.0%</div>
                     <div class="stat-label">신뢰도</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">55.0%</div>
+                    <div class="stat-value">67.6%</div>
                     <div class="stat-label">GO 확률</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">$4.133000</div>
+                    <div class="stat-value">$16.409000</div>
                     <div class="stat-label">현재가</div>
                 </div>
                 <div class="stat-card">
@@ -350,34 +429,64 @@
             </div>
             
             
-        <div style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-color); border-radius: 10px;">
-            <h4>🔍 AI 판단 근거</h4>
-            <p>🟡 <strong>스토캐스틱_K:</strong> 스토캐스틱_K: 0.698</p><p>🟡 <strong>ATR:</strong> ATR: 0.048</p><p>🟢 <strong>RSI:</strong> RSI 78.9로 과매수 상태, 하락 압력</p>
-            <p><strong>핵심 인사이트:</strong> </p>
+        <div style="margin-top: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 15px; border: 1px solid var(--border-color);">
+            <h4 style="color: var(--primary-color); margin-bottom: 1rem;">🔍 AI 판단 근거</h4>
+            <p style='margin-bottom: 0.5rem;'>🟡 <strong>스토캐스틱_K:</strong> 스토캐스틱_K: 0.847</p><p style='margin-bottom: 0.5rem;'>🟡 <strong>ATR:</strong> ATR: 0.032</p><p style='margin-bottom: 0.5rem;'>🔴 <strong>12봉_수익률:</strong> 12봉_수익률 +13.95%로 상승, 조정 압력</p>
+            <p style="margin-top: 1rem;"><strong>핵심 인사이트:</strong> 숏 불리 요인: 12봉_수익률</p>
         </div>
         
         </div>
         
 
-        <!-- 실시간 차트 -->
+        <!-- 개선된 실시간 차트 -->
         
-        <div class="chart-section">
-            <h2>📈 OMNIUSDT 실시간 차트 (4시간봉)</h2>
-            <div class="chart-container">
+        <div class="chart-section" id="chartSection">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2 class="section-title">📈 OGUSDT 실시간 차트 (4시간봉)</h2>
+                <button onclick="toggleChartSize()" id="chartToggleBtn" 
+                        style="padding: 0.5rem 1rem; background: var(--accent-color); color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    🔍 확대
+                </button>
+            </div>
+            <div class="chart-container" id="chartContainer">
                 <div id="tradingview_chart"></div>
             </div>
         </div>
         
         <script>
+            let isChartExpanded = false;
+            
+            function toggleChartSize() {
+                const chartSection = document.getElementById('chartSection');
+                const chartContainer = document.getElementById('chartContainer');
+                const toggleBtn = document.getElementById('chartToggleBtn');
+                
+                if (!isChartExpanded) {
+                    // 확대
+                    chartSection.classList.add('chart-fullscreen');
+                    chartContainer.style.height = 'calc(95vh - 120px)';
+                    toggleBtn.innerHTML = '🔍 축소';
+                    toggleBtn.style.position = 'relative';
+                    toggleBtn.style.zIndex = '1000';
+                    isChartExpanded = true;
+                } else {
+                    // 축소
+                    chartSection.classList.remove('chart-fullscreen');
+                    chartContainer.style.height = '800px';
+                    toggleBtn.innerHTML = '🔍 확대';
+                    isChartExpanded = false;
+                }
+            }
+            
             new TradingView.widget({
                 "autosize": true,
-                "symbol": "BINANCE:OMNIUSDT",
+                "symbol": "BINANCE:OGUSDT",
                 "interval": "240",
                 "timezone": "Asia/Seoul",
-                "theme": "light",
+                "theme": "dark",
                 "style": "1",
                 "locale": "kr",
-                "toolbar_bg": "#f1f3f6",
+                "toolbar_bg": "#000000",
                 "enable_publishing": false,
                 "hide_top_toolbar": false,
                 "hide_legend": false,
@@ -385,59 +494,44 @@
                 "container_id": "tradingview_chart",
                 "studies": [
                     "RSI@tv-basicstudies",
-                    "MASimple@tv-basicstudies"
-                ]
+                    "MASimple@tv-basicstudies",
+                    "Volume@tv-basicstudies"
+                ],
+                "overrides": {
+                    "paneProperties.background": "#000000",
+                    "paneProperties.backgroundType": "solid",
+                    "paneProperties.vertGridProperties.color": "#1a1a1a",
+                    "paneProperties.horzGridProperties.color": "#1a1a1a",
+                    "paneProperties.vertGridProperties.style": 0,
+                    "paneProperties.horzGridProperties.style": 0,
+                    "symbolWatermarkProperties.transparency": 95,
+                    "scalesProperties.textColor": "#ffffff",
+                    "scalesProperties.backgroundColor": "#000000",
+                    "scalesProperties.fontSize": 12,
+                    "mainSeriesProperties.candleStyle.upColor": "#00ff88",
+                    "mainSeriesProperties.candleStyle.downColor": "#ff4444",
+                    "mainSeriesProperties.candleStyle.drawWick": true,
+                    "mainSeriesProperties.candleStyle.drawBorder": true,
+                    "mainSeriesProperties.candleStyle.borderColor": "#ffffff",
+                    "mainSeriesProperties.candleStyle.borderUpColor": "#00ff88",
+                    "mainSeriesProperties.candleStyle.borderDownColor": "#ff4444",
+                    "mainSeriesProperties.candleStyle.wickUpColor": "#00ff88",
+                    "mainSeriesProperties.candleStyle.wickDownColor": "#ff4444",
+                    "volumePaneSize": "medium",
+                    "studies.volume.volume.color.0": "#ff4444",
+                    "studies.volume.volume.color.1": "#00ff88",
+                    "studies.volume.volume.transparency": 50
+                }
             });
         </script>
         
 
-        <!-- 분석 히스토리 -->
+        <!-- AI 종목 분석 히스토리 -->
         
         <div class="history-section">
-            <h2>📊 AI 분석 히스토리 & 상위 후보</h2>
+            <h2 class="section-title">📋 AI 종목 분석 히스토리</h2>
+            <p style="margin-bottom: 1.5rem; color: #666;">AI가 분석해서 최고 점수를 얻은 종목들의 리스트입니다. 종목명을 클릭하면 바이낸스 차트로 이동합니다.</p>
             
-            <!-- 상위 후보 종목들 -->
-            <h3>🏆 현재 상위 후보 종목들</h3>
-            <div class="candidates-grid">
-            <div class="candidate-card">
-                <div class="candidate-rank">#1</div>
-                <h4>OMNIUSDT</h4>
-                <p><strong>점수:</strong> 43/100</p>
-                <p><strong>신뢰도:</strong> 49.0%</p>
-                <p><strong>GO확률:</strong> 55.0%</p>
-                <p><strong>신경망:</strong> 학습됨</p>
-                <p><strong>리스크:</strong> <span class="risk-badge risk-high">HIGH</span></p>
-            </div>
-            
-            <div class="candidate-card">
-                <div class="candidate-rank">#2</div>
-                <h4>QUSDT</h4>
-                <p><strong>점수:</strong> 38/100</p>
-                <p><strong>신뢰도:</strong> 44.0%</p>
-                <p><strong>GO확률:</strong> 64.0%</p>
-                <p><strong>신경망:</strong> 학습됨</p>
-                <p><strong>리스크:</strong> <span class="risk-badge risk-high">HIGH</span></p>
-            </div>
-            
-            <div class="candidate-card">
-                <div class="candidate-rank">#3</div>
-                <h4>UBUSDT</h4>
-                <p><strong>점수:</strong> 32/100</p>
-                <p><strong>신뢰도:</strong> 38.0%</p>
-                <p><strong>GO확률:</strong> 50.8%</p>
-                <p><strong>신경망:</strong> 학습됨</p>
-                <p><strong>리스크:</strong> <span class="risk-badge risk-high">HIGH</span></p>
-            </div>
-            </div>
-            
-            <!-- 점수 추이 차트 -->
-            <h3>📈 분석 점수 추이</h3>
-            <div class="chart-container">
-                <canvas id="historyChart"></canvas>
-            </div>
-            
-            <!-- 상세 히스토리 테이블 -->
-            <h3>📋 상세 히스토리</h3>
             <div style="overflow-x: auto;">
                 <table class="history-table">
                     <thead>
@@ -454,90 +548,110 @@
                     <tbody>
                         
                 <tr>
-                    <td>2025-09-20 14:04</td>
-                    <td><strong>OMNIUSDT</strong></td>
-                    <td><span class="decision-badge decision-cand">CANDIDATE_NOGO</span></td>
-                    <td>43</td>
+                    <td style="font-size: 0.9rem;">2025-09-20 14:59</td>
+                    <td><a href="https://www.binance.com/en/futures/OGUSDT" target="_blank" class="symbol-link">OGUSDT</a></td>
+                    <td><span class="decision-badge decision-nogo" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">NOGO</span></td>
+                    <td style="font-weight: bold; color: var(--accent-color);">48</td>
+                    <td>54.0%</td>
+                    <td>67.6%</td>
+                    <td><span class="risk-badge risk-high">HIGH</span></td>
+                </tr>
+            
+                <tr>
+                    <td style="font-size: 0.9rem;">2025-09-20 14:44</td>
+                    <td><a href="https://www.binance.com/en/futures/OGUSDT" target="_blank" class="symbol-link">OGUSDT</a></td>
+                    <td><span class="decision-badge decision-nogo" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">NOGO</span></td>
+                    <td style="font-weight: bold; color: var(--accent-color);">45</td>
+                    <td>51.0%</td>
+                    <td>58.8%</td>
+                    <td><span class="risk-badge risk-high">HIGH</span></td>
+                </tr>
+            
+                <tr>
+                    <td style="font-size: 0.9rem;">2025-09-20 14:04</td>
+                    <td><a href="https://www.binance.com/en/futures/OMNIUSDT" target="_blank" class="symbol-link">OMNIUSDT</a></td>
+                    <td><span class="decision-badge decision-nogo" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">NOGO</span></td>
+                    <td style="font-weight: bold; color: var(--accent-color);">43</td>
                     <td>49.0%</td>
                     <td>55.0%</td>
                     <td><span class="risk-badge risk-high">HIGH</span></td>
                 </tr>
             
                 <tr>
-                    <td>2025-09-20 14:04</td>
-                    <td><strong>QUSDT</strong></td>
-                    <td><span class="decision-badge decision-cand">CANDIDATE_NOGO</span></td>
-                    <td>38</td>
+                    <td style="font-size: 0.9rem;">2025-09-20 14:04</td>
+                    <td><a href="https://www.binance.com/en/futures/QUSDT" target="_blank" class="symbol-link">QUSDT</a></td>
+                    <td><span class="decision-badge decision-nogo" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">NOGO</span></td>
+                    <td style="font-weight: bold; color: var(--accent-color);">38</td>
                     <td>44.0%</td>
                     <td>64.0%</td>
                     <td><span class="risk-badge risk-high">HIGH</span></td>
                 </tr>
             
                 <tr>
-                    <td>2025-09-20 14:04</td>
-                    <td><strong>UBUSDT</strong></td>
-                    <td><span class="decision-badge decision-cand">CANDIDATE_NOGO</span></td>
-                    <td>32</td>
+                    <td style="font-size: 0.9rem;">2025-09-20 14:04</td>
+                    <td><a href="https://www.binance.com/en/futures/UBUSDT" target="_blank" class="symbol-link">UBUSDT</a></td>
+                    <td><span class="decision-badge decision-nogo" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">NOGO</span></td>
+                    <td style="font-weight: bold; color: var(--accent-color);">32</td>
                     <td>38.0%</td>
                     <td>50.8%</td>
                     <td><span class="risk-badge risk-high">HIGH</span></td>
                 </tr>
             
                 <tr>
-                    <td>2025-09-20 13:45</td>
-                    <td><strong>OMNIUSDT</strong></td>
-                    <td><span class="decision-badge decision-cand">CANDIDATE_NOGO</span></td>
-                    <td>42</td>
+                    <td style="font-size: 0.9rem;">2025-09-20 13:45</td>
+                    <td><a href="https://www.binance.com/en/futures/OMNIUSDT" target="_blank" class="symbol-link">OMNIUSDT</a></td>
+                    <td><span class="decision-badge decision-nogo" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">NOGO</span></td>
+                    <td style="font-weight: bold; color: var(--accent-color);">42</td>
                     <td>48.0%</td>
                     <td>53.7%</td>
                     <td><span class="risk-badge risk-high">HIGH</span></td>
                 </tr>
             
                 <tr>
-                    <td>2025-09-20 13:45</td>
-                    <td><strong>QUSDT</strong></td>
-                    <td><span class="decision-badge decision-cand">CANDIDATE_NOGO</span></td>
-                    <td>32</td>
+                    <td style="font-size: 0.9rem;">2025-09-20 13:45</td>
+                    <td><a href="https://www.binance.com/en/futures/QUSDT" target="_blank" class="symbol-link">QUSDT</a></td>
+                    <td><span class="decision-badge decision-nogo" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">NOGO</span></td>
+                    <td style="font-weight: bold; color: var(--accent-color);">32</td>
                     <td>38.0%</td>
                     <td>50.7%</td>
                     <td><span class="risk-badge risk-high">HIGH</span></td>
                 </tr>
             
                 <tr>
-                    <td>2025-09-20 13:45</td>
-                    <td><strong>UBUSDT</strong></td>
-                    <td><span class="decision-badge decision-cand">CANDIDATE_NOGO</span></td>
-                    <td>31</td>
+                    <td style="font-size: 0.9rem;">2025-09-20 13:45</td>
+                    <td><a href="https://www.binance.com/en/futures/UBUSDT" target="_blank" class="symbol-link">UBUSDT</a></td>
+                    <td><span class="decision-badge decision-nogo" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">NOGO</span></td>
+                    <td style="font-weight: bold; color: var(--accent-color);">31</td>
                     <td>37.0%</td>
                     <td>46.5%</td>
                     <td><span class="risk-badge risk-high">HIGH</span></td>
                 </tr>
             
                 <tr>
-                    <td>2025-09-20 13:45</td>
-                    <td><strong>OMNIUSDT</strong></td>
-                    <td><span class="decision-badge decision-cand">CANDIDATE_NOGO</span></td>
-                    <td>43</td>
+                    <td style="font-size: 0.9rem;">2025-09-20 13:45</td>
+                    <td><a href="https://www.binance.com/en/futures/OMNIUSDT" target="_blank" class="symbol-link">OMNIUSDT</a></td>
+                    <td><span class="decision-badge decision-nogo" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">NOGO</span></td>
+                    <td style="font-weight: bold; color: var(--accent-color);">43</td>
                     <td>49.0%</td>
                     <td>54.5%</td>
                     <td><span class="risk-badge risk-high">HIGH</span></td>
                 </tr>
             
                 <tr>
-                    <td>2025-09-20 13:45</td>
-                    <td><strong>QUSDT</strong></td>
-                    <td><span class="decision-badge decision-cand">CANDIDATE_NOGO</span></td>
-                    <td>32</td>
+                    <td style="font-size: 0.9rem;">2025-09-20 13:45</td>
+                    <td><a href="https://www.binance.com/en/futures/QUSDT" target="_blank" class="symbol-link">QUSDT</a></td>
+                    <td><span class="decision-badge decision-nogo" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">NOGO</span></td>
+                    <td style="font-weight: bold; color: var(--accent-color);">32</td>
                     <td>38.0%</td>
                     <td>49.1%</td>
                     <td><span class="risk-badge risk-high">HIGH</span></td>
                 </tr>
             
                 <tr>
-                    <td>2025-09-20 13:45</td>
-                    <td><strong>UBUSDT</strong></td>
-                    <td><span class="decision-badge decision-cand">CANDIDATE_NOGO</span></td>
-                    <td>31</td>
+                    <td style="font-size: 0.9rem;">2025-09-20 13:45</td>
+                    <td><a href="https://www.binance.com/en/futures/UBUSDT" target="_blank" class="symbol-link">UBUSDT</a></td>
+                    <td><span class="decision-badge decision-nogo" style="font-size: 0.7rem; padding: 0.3rem 0.6rem;">NOGO</span></td>
+                    <td style="font-weight: bold; color: var(--accent-color);">31</td>
                     <td>37.0%</td>
                     <td>47.0%</td>
                     <td><span class="risk-badge risk-high">HIGH</span></td>
@@ -565,58 +679,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        // 히스토리 차트 생성
-        
-        const historyChartData = {
-            labels: ["2025-09-20"],
-            datasets: [{
-                label: '평균 분석 점수',
-                data: [36.0],
-                borderColor: '#3498db',
-                backgroundColor: 'rgba(52, 152, 219, 0.1)',
-                tension: 0.4,
-                fill: true
-            }]
-        };
-        
-        
-        // 차트가 존재하는 경우에만 생성
-        const historyChartElement = document.getElementById('historyChart');
-        if (historyChartElement && historyChartData.labels.length > 0) {
-            const ctx = historyChartElement.getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: historyChartData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: '최근 30일 AI 분석 점수 추이'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100,
-                            title: {
-                                display: true,
-                                text: '분석 점수'
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: '날짜'
-                            }
-                        }
-                    }
-                }
-            });
-        }
-    </script>
 </body>
 </html>
