@@ -10,20 +10,19 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            color: #e2e8f0;
+            background: #f0f2f5;
+            color: #1e293b;
             padding: 20px;
             min-height: 100vh;
         }
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: rgba(255,255,255,0.04);
+            background: #ffffff;
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+            border: 1px solid #e2e8f0;
             overflow: hidden;
         }
 
@@ -47,12 +46,12 @@
 
         /* ── 네비게이션 ── */
         .nav-section {
-            background: rgba(255,255,255,0.06);
+            background: #f8fafc;
             padding: 18px 15px;
             text-align: center;
             border-radius: 12px;
             margin-bottom: 25px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid #e2e8f0;
         }
         .nav-section .btn {
             margin: 6px 5px;
@@ -65,7 +64,7 @@
             display: inline-block;
             min-height: 44px;
         }
-        .nav-section .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); filter: brightness(1.15); }
+        .nav-section .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); filter: brightness(1.08); }
         .btn-dashboard { background: linear-gradient(135deg,#667eea,#764ba2); color:white; }
         .btn-market    { background: linear-gradient(135deg,#f093fb,#f5576c); color:white; }
         .btn-pattern   { background: linear-gradient(135deg,#4facfe,#00f2fe); color:#111; }
@@ -73,23 +72,24 @@
 
         /* ── 규칙3 조건 박스 ── */
         .rule-section {
-            background: rgba(102,126,234,0.1);
-            border: 1px solid rgba(102,126,234,0.3);
+            background: #f0f4ff;
+            border: 1px solid #c7d2fe;
             border-radius: 14px;
             padding: 22px 20px;
             margin-bottom: 25px;
         }
-        .rule-section h3 { color: #a78bfa; margin-bottom: 15px; font-size: 1.15em; }
+        .rule-section h3 { color: #4f46e5; margin-bottom: 15px; font-size: 1.15em; }
         .rule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
         .rule-card {
-            background: rgba(255,255,255,0.05);
+            background: #ffffff;
             border-radius: 10px; padding: 16px 18px;
             border-left: 4px solid;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
         }
-        .rule-card.long  { border-color: #34d399; }
-        .rule-card.short { border-color: #f87171; }
-        .rule-card strong { color: #e2e8f0; font-size: 1em; display: block; margin-bottom: 6px; }
-        .rule-card p { color: #94a3b8; font-size: 0.875em; line-height: 1.6; margin: 0; }
+        .rule-card.long  { border-color: #10b981; }
+        .rule-card.short { border-color: #ef4444; }
+        .rule-card strong { color: #1e293b; font-size: 1em; display: block; margin-bottom: 6px; }
+        .rule-card p { color: #64748b; font-size: 0.875em; line-height: 1.6; margin: 0; }
 
         /* ── 통계 그리드 ── */
         .stats-container { padding: 0 0 25px 0; }
@@ -105,27 +105,27 @@
             gap: 14px;
         }
         .stat-card {
-            background: rgba(255,255,255,0.07);
+            background: #f8fafc;
             padding: 18px 14px;
             border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 1px 6px rgba(0,0,0,0.07);
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid #e2e8f0;
             transition: transform 0.3s;
         }
-        .stat-card:hover { transform: translateY(-3px); }
+        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
         .stat-number {
             font-size: 2em; font-weight: bold;
             margin-bottom: 6px; line-height: 1.2;
         }
-        .stat-label { color: #94a3b8; font-size: 0.88em; line-height: 1.4; }
-        .c-green  { color: #34d399; }
-        .c-red    { color: #f87171; }
-        .c-purple { color: #a78bfa; }
-        .c-yellow { color: #fbbf24; }
-        .c-blue   { color: #60a5fa; }
-        .c-orange { color: #fb923c; }
-        .c-white  { color: #e2e8f0; }
+        .stat-label { color: #64748b; font-size: 0.88em; line-height: 1.4; }
+        .c-green  { color: #059669; }
+        .c-red    { color: #dc2626; }
+        .c-purple { color: #7c3aed; }
+        .c-yellow { color: #d97706; }
+        .c-blue   { color: #2563eb; }
+        .c-orange { color: #ea580c; }
+        .c-white  { color: #1e293b; }
 
         /* ── 롱/숏 성과 비교 ── */
         .perf-compare {
@@ -136,41 +136,42 @@
         }
         .perf-card {
             border-radius: 12px; padding: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid #e2e8f0;
         }
-        .perf-card.long  { background: rgba(52,211,153,0.08); border-color: rgba(52,211,153,0.3); }
-        .perf-card.short { background: rgba(248,113,113,0.08); border-color: rgba(248,113,113,0.3); }
+        .perf-card.long  { background: #f0fdf4; border-color: #a7f3d0; }
+        .perf-card.short { background: #fff5f5; border-color: #fecaca; }
         .perf-title { font-size: 1.1em; font-weight: bold; margin-bottom: 14px; }
-        .perf-title.long  { color: #34d399; }
-        .perf-title.short { color: #f87171; }
+        .perf-title.long  { color: #059669; }
+        .perf-title.short { color: #dc2626; }
         .perf-row { display: flex; justify-content: space-between; padding: 6px 0;
-                     border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9em; }
+                     border-bottom: 1px solid #f1f5f9; font-size: 0.9em; }
         .perf-row:last-child { border-bottom: none; }
-        .perf-key { color: #94a3b8; }
+        .perf-key { color: #64748b; }
         .perf-val { font-weight: bold; }
 
         /* ── 섹션 ── */
         .section { margin-bottom: 30px; }
         .section-title {
-            font-size: 1.3em; color: #e2e8f0;
+            font-size: 1.3em; color: #1e293b;
             margin-bottom: 16px; padding-bottom: 10px;
-            border-bottom: 2px solid rgba(167,139,250,0.5);
+            border-bottom: 2px solid #c7d2fe;
         }
 
         /* ── 차트 ── */
         .chart-section {
-            background: rgba(255,255,255,0.03);
+            background: #f8fafc;
             padding: 25px;
             border-radius: 14px;
             margin-bottom: 30px;
-            border: 1px solid rgba(255,255,255,0.07);
+            border: 1px solid #e2e8f0;
         }
-        .chart-title { font-size: 1.2em; color: #c4b5fd; margin-bottom: 15px; text-align: center; }
+        .chart-title { font-size: 1.2em; color: #4f46e5; margin-bottom: 15px; text-align: center; }
 
         /* ── 테이블 ── */
         .table-section { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; min-width: 1000px;
-                 background: rgba(255,255,255,0.02); border-radius: 10px; overflow: hidden; }
+                 background: #ffffff; border-radius: 10px; overflow: hidden;
+                 border: 1px solid #e2e8f0; }
         th {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white; padding: 14px 10px;
@@ -179,49 +180,50 @@
         }
         td {
             padding: 12px 10px; text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: 0.88em; color: #cbd5e1;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.88em; color: #334155;
         }
-        tr:hover td { background: rgba(255,255,255,0.04); }
-        .optimal-row { background: rgba(251,191,36,0.07); }
-        .optimal-row:hover td { background: rgba(251,191,36,0.12); }
+        tr:hover td { background: #f8fafc; }
+        .optimal-row { background: #fffbeb; }
+        .optimal-row:hover td { background: #fef3c7; }
 
         /* ── 배지 ── */
         .badge {
             display: inline-block; padding: 3px 10px;
             border-radius: 12px; font-size: 0.82em; font-weight: bold;
         }
-        .b-long    { background: rgba(52,211,153,0.2);  color: #34d399; }
-        .b-short   { background: rgba(248,113,113,0.2); color: #f87171; }
-        .b-open    { background: rgba(251,191,36,0.2);  color: #fbbf24; }
-        .b-closed  { background: rgba(148,163,184,0.2); color: #94a3b8; }
-        .b-sl      { background: rgba(248,113,113,0.2); color: #f87171; }
-        .b-tp      { background: rgba(52,211,153,0.2);  color: #34d399; }
-        .b-expired { background: rgba(96,165,250,0.2);  color: #60a5fa; }
+        .b-long    { background: #d1fae5; color: #065f46; }
+        .b-short   { background: #fee2e2; color: #991b1b; }
+        .b-open    { background: #fef3c7; color: #92400e; }
+        .b-closed  { background: #f1f5f9; color: #475569; }
+        .b-sl      { background: #fee2e2; color: #991b1b; }
+        .b-tp      { background: #d1fae5; color: #065f46; }
+        .b-expired { background: #dbeafe; color: #1e40af; }
 
         .symbol-link {
-            color: #60a5fa; text-decoration: none; font-weight: bold;
+            color: #2563eb; text-decoration: none; font-weight: bold;
             transition: all 0.2s; display: inline-block;
             padding: 4px 8px; min-height: 32px; line-height: 1.4;
         }
-        .symbol-link:hover { color: #93c5fd; text-decoration: underline;
-                               background: rgba(96,165,250,0.1); border-radius: 6px; }
+        .symbol-link:hover { color: #1d4ed8; text-decoration: underline;
+                               background: #eff6ff; border-radius: 6px; }
 
         /* ── 노트 박스 ── */
         .note {
-            background: rgba(30,58,138,0.3);
+            background: #eff6ff;
             border-left: 4px solid #3b82f6;
             padding: 16px 18px; margin: 20px 0; border-radius: 8px;
         }
-        .note-title { font-weight: bold; color: #93c5fd; margin-bottom: 8px; }
-        .note p { color: #94a3b8; margin: 6px 0; line-height: 1.7; font-size: 0.9em; }
+        .note-title { font-weight: bold; color: #1d4ed8; margin-bottom: 8px; }
+        .note p { color: #475569; margin: 6px 0; line-height: 1.7; font-size: 0.9em; }
 
         /* ── 푸터 ── */
         .footer {
-            background: rgba(255,255,255,0.03);
+            background: #f8fafc;
             padding: 22px 20px; text-align: center;
             color: #64748b; font-size: 0.88em; line-height: 1.8;
             border-radius: 10px; margin-top: 10px;
+            border: 1px solid #e2e8f0;
         }
 
         /* ── 반응형 ── */
@@ -245,7 +247,7 @@
     <div class="header">
         <div class="badge-paper">📝 모의거래 (Paper Trading)</div>
         <h1>🤖 자동매매 결과 — 롱/숏 자동 선택</h1>
-        <p>생성 시간: 2026-02-20 23:49:07</p>
+        <p>생성 시간: 2026-02-20 23:57:17</p>
         <p>손절 -17% / 익절 +20% / 강제종료 20h / 레버리지 1x / 포지션 $50.0</p>
     </div>
 
@@ -394,7 +396,7 @@
                     <tbody>
             <tr class="optimal-row">
                 <td>1</td>
-                <td>2026-02-20 23:49 (0.0h)</td>
+                <td>2026-02-20 23:49 (0.1h)</td>
                 <td><a class="symbol-link" href="https://www.binance.com/en/futures/LITUSDT"
                        target="_blank">LITUSDT</a></td>
                 <td><span class="badge b-short">🔽 SHORT</span></td>
@@ -465,7 +467,7 @@
 
     <!-- 푸터 -->
     <div class="footer">
-        <p>생성 시간: 2026-02-20 23:49:07 | 바이낸스 USDT 선물 모의거래</p>
+        <p>생성 시간: 2026-02-20 23:57:17 | 바이낸스 USDT 선물 모의거래</p>
         <p>총 거래: 0건 | 승률: 0.0% | 누적 수익률: +0.00% | 누적 PNL: $+0.0000</p>
         <p>롱 0건(승률 0.0%) | 숏 0건(승률 0.0%) | SL 0 / TP 0 / 강제종료 0</p>
     </div>
